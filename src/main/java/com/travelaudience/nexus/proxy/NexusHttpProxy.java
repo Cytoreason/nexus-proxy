@@ -62,7 +62,7 @@ public final class NexusHttpProxy {
                                  final HttpServerRequest origReq,
                                  final HttpServerResponse origRes) {
         final Handler<HttpClientResponse> proxiedResHandler = proxiedRes -> {
-            origRes.setChunked(true);
+            // origRes.setChunked(true);
             origRes.setStatusCode(proxiedRes.statusCode());
             origRes.headers().setAll(proxiedRes.headers());
             proxiedRes.handler(origRes::write);
@@ -74,7 +74,7 @@ public final class NexusHttpProxy {
         if(origReq.method() == HttpMethod.OTHER) {
             proxiedReq.setRawMethod(origReq.rawMethod());
         }
-        proxiedReq.setChunked(true);
+        // proxiedReq.setChunked(true);
         proxiedReq.headers().add(X_FORWARDED_PROTO, getHeader(origReq, X_FORWARDED_PROTO, origReq.scheme()));
         proxiedReq.headers().add(X_FORWARDED_FOR, getHeader(origReq, X_FORWARDED_FOR, origReq.remoteAddress().host()));
         proxiedReq.headers().addAll(origReq.headers());
