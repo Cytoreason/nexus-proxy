@@ -135,9 +135,10 @@ public abstract class BaseNexusProxyVerticle extends AbstractVerticle {
             final NexusHttpProxy proxy = ((NexusHttpProxy) ctx.data().get(PROXY));
 
             if (proxy != null) {
+                LOGGER.debug("Request URL: {}", ctx.request().absoluteURI());
                 LOGGER.debug("Response original headers: content-length: {}, transfer-encoding: {}",
-                ctx.response().headers().get("CONTENT-LENGTH"),
-                ctx.response().headers().get("TRANSFER-ENCODING"));
+                ctx.response().headers().get("Content-Length"),
+                ctx.response().headers().get("Transfer-Encoding"));
                 proxy.proxyUserRequest(getUserId(ctx), ctx.request(), ctx.response());
                 return;
             }
